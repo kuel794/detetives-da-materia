@@ -864,7 +864,7 @@
             <p class="dev">Sistema desenvolvido por ${cr.desenvolvedor} · ${cr.instagram}</p>
           </div>
         </div>
-        <button class="cartao-fechar" data-fechar>${I('ok')} Pronto, ver meu certificado</button>
+        <button class="btn btn-pri btn-grande cartao-fechar" data-fechar>Ver meu certificado completo ${I('seta')}</button>
       </div>`;
     document.body.appendChild(fundo);
     requestAnimationFrame(() => fundo.classList.add('on'));

@@ -503,7 +503,7 @@ DM.quiz = [
 
 DM.VOLUME = 1;             // volume dos sons do site: 0 (mudo) a 1 (máximo)
 DM.QUIZ_TOTAL = 10;        // perguntas por rodada
-DM.QUIZ_TEMPO = 15;        // segundos para responder cada pergunta
+DM.QUIZ_TEMPO = 20;        // segundos para responder cada pergunta
 DM.QUIZ_PAUSA = 6;         // segundos mostrando a explicação antes de passar sozinho
 DM.PONTOS_ETAPA = 10;      // 4 etapas x 5 casos = 200
 DM.PONTOS_QUIZ = 10;       // 10 perguntas = 100

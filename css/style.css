@@ -221,8 +221,10 @@ body[data-tela="inicio"] #topo { margin-top: calc(var(--topo-h) * -1 - 6px); }
 .cartao-creditos dl { grid-template-columns: 1fr 1fr; }
 .cartao-creditos dl div:last-child { grid-column: 1 / 3; }
 .cartao .dev { text-align: left; }
-.cartao-fechar { position: fixed; right: 16px; bottom: 14px; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 30px; font-weight: 800; font-size: 14px; color: var(--texto-2); background: rgba(255, 255, 255, .08); border: 1px solid var(--linha); }
-.cartao-fechar .ico { width: 18px; height: 18px; }
+.cartao-fechar { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 2; box-shadow: 0 6px 0 #c98f00, 0 14px 40px rgba(0, 0, 0, .5); animation: chamaAtencao 1.6s 2.5s ease-in-out infinite; white-space: nowrap; }
+.cartao-fechar:active { transform: translateX(-50%) translateY(4px); }
+@keyframes chamaAtencao { 50% { box-shadow: 0 6px 0 #c98f00, 0 0 0 12px rgba(255, 201, 51, .22), 0 14px 40px rgba(0, 0, 0, .5); } }
+.cartao-corpo { padding-bottom: 96px; }
 @media (max-width: 960px) {
   .cartao-corpo { grid-template-columns: 1fr; justify-items: center; }
   .cartao-polaroide { max-width: 380px; max-height: 40vh; width: auto; }
@@ -800,7 +802,7 @@ body[data-tela="inicio"] #topo { margin-top: calc(var(--topo-h) * -1 - 6px); }
   .topo-dir { margin-left: auto; }
 }
 @media (max-height: 800px) and (min-width: 961px) {
-  .inicio-grid { padding-top: 14px; padding-bottom: 14px; row-gap: 10px; }
+  .inicio-grid { padding-top: 8px; padding-bottom: 6px; row-gap: 10px; }
   .titulo-mega { font-size: clamp(54px, 7vw, 96px); margin-bottom: 12px; }
   .missao-tag { margin-bottom: 18px; }
   .logo-inicio { height: clamp(58px, 10vh, 84px); margin-bottom: 12px; }
@@ -813,6 +815,153 @@ body[data-tela="inicio"] #topo { margin-top: calc(var(--topo-h) * -1 - 6px); }
 
 @media (prefers-reduced-motion: reduce) {
   .fita-txt, .led, .dica-lupa { animation: none; }
+}
+
+/* ================= MODO COMPACTO (tablet e celular: caber sem rolar) ================= */
+/* tablets deitados e telas baixas */
+@media (max-height: 900px) {
+  :root { --topo-h: 64px; }
+  .marca-ico { width: 40px; height: 40px; }
+  .topo-nav button, .ico-btn { min-height: 46px; }
+  .ico-btn { width: 46px; height: 46px; }
+  .pontos-box { height: 46px; min-width: 80px; }
+  .pontos-box b { font-size: 22px; }
+  .tela { padding-top: 16px; padding-bottom: 20px; }
+  .tela-cab { margin-bottom: 12px; }
+  .tela-cab h2 { font-size: clamp(24px, 2.8vw, 34px); }
+  .sobre { font-size: 13px; margin-bottom: 2px; }
+  .tela-cab .btn { min-height: 46px; font-size: 17px; padding: 0 16px; }
+  .btn { min-height: 52px; font-size: 19px; }
+
+  /* arquivos */
+  .arq-layout { grid-template-columns: 210px 1fr; gap: 16px; }
+  .arq-lista { gap: 6px; }
+  .arq-aba { min-height: 52px; font-size: 16px; padding: 6px 12px; }
+  .dossie { padding-bottom: 16px; }
+  .dossie-cab { padding: 8px 20px; }
+  .dossie-corpo { grid-template-columns: .85fr 1.15fr; gap: 18px; padding: 14px 20px 4px; }
+  .dossie-ilu .ilu { max-height: 30vh; }
+  .dossie-txt h3 { font-size: 34px; }
+  .dossie-resumo { font-size: 15px; margin-bottom: 8px; }
+  .dossie-txt p:not(.dossie-resumo) { font-size: 16px; line-height: 1.5; }
+  .dossie-pontos { padding: 10px 20px 0; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .ponto { padding: 8px 12px; }
+  .ponto b { font-size: 18px; }
+  .ponto span { font-size: 14px; line-height: 1.35; }
+  .pista-detetive { margin: 10px 20px 0; padding: 10px 14px; }
+  .pista-detetive p { font-size: 15px; }
+  .pista-detetive > .ico { width: 24px; height: 24px; }
+  .dossie-nav { padding: 12px 20px 0; }
+
+  /* lista de casos: 3 por linha, cartões menores */
+  .casos-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px 16px; }
+  .caso-card { grid-template-columns: 92px 1fr; gap: 12px; padding: 26px 14px 14px; margin-top: 16px; }
+  .caso-info b { font-size: 24px; }
+  .caso-local { font-size: 13.5px; }
+
+  /* um caso */
+  .caso-layout { grid-template-columns: minmax(260px, 330px) 1fr; gap: 16px; }
+  .evid-amostra .amostra-svg { max-height: 46vh; }
+  .evid-leitura { min-height: 0; padding: 8px 12px; }
+  .evid-leitura span { font-size: 13.5px; }
+  .trilha { margin-bottom: 10px; padding: 8px 12px; }
+  .trilha-n { width: 30px; height: 30px; }
+  .trilha-passo { font-size: 14px; }
+  .pistas { margin-bottom: 12px; padding: 10px 16px 10px; }
+  .pistas-tit { font-size: 17px; margin-bottom: 6px; }
+  .pistas li { font-size: 13.5px; }
+  .pergunta-box, .quiz-card { padding: 16px 20px; }
+  .pergunta-box h3, .quiz-card h3 { font-size: clamp(24px, 2.6vw, 32px); margin-bottom: 12px; }
+  .opcoes { gap: 10px; }
+  .opcao { min-height: 60px; padding: 10px 14px; font-size: 17px; }
+  .quiz-ops .opcao { min-height: 64px; }
+  .feedback.on { margin-top: 12px; padding: 10px 14px; gap: 12px; }
+  .fb-ico { width: 40px; height: 40px; }
+  .fb-txt b { font-size: 19px; }
+  .fb-txt p { font-size: 15px; line-height: 1.4; }
+  .feedback .btn { min-height: 50px; font-size: 17px; padding: 0 16px; }
+  .conclusao { padding: 16px 20px; }
+  .conclusao h3 { font-size: 32px; }
+  .conc-cab { margin-bottom: 10px; }
+  .carimbo { font-size: 22px; padding: 6px 10px; }
+  .conclusao .cena-box .lab-svg { max-height: 36vh; }
+  .ficha b { font-size: 18px; }
+  .conclusao-botoes { margin-top: 12px; }
+
+  /* laboratório */
+  .lab-layout { grid-template-columns: 200px 1fr; gap: 16px; }
+  .lab-lista { gap: 6px; }
+  .lab-btn { min-height: 50px; font-size: 15.5px; padding: 6px 10px; }
+  .lab-n { width: 28px; height: 28px; font-size: 14px; }
+  .lab-tela { gap: 14px; }
+  .lab-monitor .cena-box svg { max-height: 50vh; }
+  .lab-monitor .btn-repetir { min-height: 40px; margin: 4px 8px; font-size: 15px; }
+  .lab-info { padding: 16px 18px; }
+  .lab-info h3 { font-size: 32px; margin-bottom: 8px; }
+  .lab-tags { gap: 6px; margin-bottom: 10px; }
+  .lab-tags span { padding: 6px 10px; font-size: 14.5px; }
+  .lab-info > p { font-size: 15.5px; line-height: 1.45; margin-bottom: 10px; }
+  .lab-passos { gap: 6px; }
+  .lab-passos li { padding: 7px 10px; font-size: 14.5px; }
+  .lab-passos li::before { width: 26px; height: 26px; font-size: 15px; }
+  .lab-info .pista-detetive { margin: 10px 0; }
+
+  /* desafio */
+  .quiz-topo { margin-bottom: 10px; }
+  .cronometro { margin-bottom: 10px; }
+  .crono-num { width: 60px; height: 60px; }
+  .crono-num b { font-size: 28px; }
+  .quiz-intro { padding: 24px; }
+}
+
+/* tablet deitado mais estreito (1024): laboratório continua lado a lado */
+@media (max-width: 1024px) and (min-width: 901px) {
+  .lab-tela { grid-template-columns: 1.05fr 1fr; }
+  .lab-monitor .cena-box svg { max-height: 44vh; }
+}
+@media (max-width: 1100px) and (max-height: 900px) {
+  .caso-layout { grid-template-columns: minmax(240px, 300px) 1fr; }
+  .opcoes { grid-template-columns: repeat(2, 1fr); }
+  .opcoes.tres { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* tablet em pé e celular */
+@media (max-width: 900px) {
+  .tela { padding-top: 14px; padding-bottom: 20px; }
+  .tela-cab { margin-bottom: 12px; }
+  .tela-cab h2 { font-size: clamp(24px, 4.6vw, 34px); }
+  .tela-cab .btn { min-height: 46px; font-size: 16px; padding: 0 14px; }
+  .arq-aba, .lab-btn { min-height: 48px; font-size: 15px; }
+  .dossie-corpo { grid-template-columns: 1fr 1.2fr; gap: 14px; padding: 14px 16px 4px; }
+  .dossie-txt h3 { font-size: 30px; }
+  .dossie-txt p:not(.dossie-resumo) { font-size: 15.5px; }
+  .dossie-pontos { padding: 10px 16px 0; }
+  .pista-detetive { margin: 10px 16px 0; }
+  .casos-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .caso-card { grid-template-columns: 74px 1fr; padding: 24px 12px 12px; }
+  .caso-info b { font-size: 21px; }
+  .evidencia { display: grid; grid-template-columns: 200px 1fr; }
+  .evid-cab { grid-column: 1 / 3; }
+  .evid-amostra { grid-row: 2 / 4; }
+  .evid-amostra .amostra-svg { max-height: 26vh; }
+  .dica-lupa { font-size: 12px; padding: 6px 10px; bottom: 6px; }
+  .evid-leitura { border-top: 0; border-bottom: 0; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; padding: 16px 20px; background: transparent; }
+  .evid-leitura span { font-size: 17px; line-height: 1.45; }
+  .evid-leitura::after { content: 'Arraste a lupa sobre o béquer para ver as partículas por dentro.'; font-size: 14px; color: var(--texto-2); }
+  .dica-lupa { display: none; }
+  .lab-tela { grid-template-columns: 1fr; }
+  .lab-monitor .cena-box svg { max-height: 25vh; margin: 0 auto; }
+  .lab-tags { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .dossie-corpo { grid-template-columns: 1fr; }
+  .dossie-ilu .ilu { max-height: 24vh; }
+  .casos-grid { grid-template-columns: 1fr; }
+  .evidencia { grid-template-columns: 130px 1fr; }
+  .evid-amostra .amostra-svg { max-height: 22vh; }
+  .dica-lupa { display: none; }
+  .lab-tags { grid-template-columns: 1fr; }
+  .opcao { min-height: 54px; }
 }
 
 /* ---------------- IMPRESSÃO: só o certificado ---------------- */
@@ -829,3 +978,6 @@ body[data-tela="inicio"] #topo { margin-top: calc(var(--topo-h) * -1 - 6px); }
 .cam-aviso > div { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 420px; }
 .cam-erro-tit { font-family: var(--f-tit); font-weight: 800; font-size: 28px; color: var(--amarelo); }
 .cam-gira { width: 44px; height: 44px; border-radius: 50%; border: 5px solid rgba(255, 255, 255, .15); border-top-color: var(--amarelo); animation: giro .9s linear infinite; }
+
+/* a fita inclinada não deve gerar rolagem na abertura */
+@media (min-height: 600px) { .tela-inicio { overflow: hidden; } }
