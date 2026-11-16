@@ -1,6 +1,6 @@
 /* Guarda o site no aparelho para funcionar sem internet na feira.
    Ao publicar uma versão nova, troque o número de VERSAO. */
-const VERSAO = 'detetives-v3';
+const VERSAO = 'detetives-v4';
 const ARQUIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/data.js', 'js/svg.js', 'js/foto.js', 'js/app.js',
@@ -16,12 +16,21 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== VERSAO).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
-// responde do aparelho na hora e, se houver internet, atualiza a cópia guardada para a próxima vez
+// Com internet: busca a versão mais nova (e atualiza a cópia guardada).
+// Sem internet (ou rede lenta, mais de 4 s): usa a cópia guardada no aparelho.
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
   e.respondWith(caches.open(VERSAO).then(async (c) => {
-    const guardado = await c.match(e.request, { ignoreSearch: true });
-    const daRede = fetch(e.request).then((r) => { if (r && r.ok) c.put(e.request, r.clone()); return r; }).catch(() => guardado);
-    return guardado || daRede;
+    const guardado = () => c.match(e.request, { ignoreSearch: true });
+    try {
+      const r = await Promise.race([
+        fetch(e.request, { cache: 'no-cache' }),
+        new Promise((_, nao) => setTimeout(() => nao(new Error('lento')), 4000))
+      ]);
+      if (r && r.ok) c.put(e.request, r.clone());
+      return r;
+    } catch (err) {
+      return (await guardado()) || Response.error();
+    }
   }));
 });

@@ -88,8 +88,9 @@
       this.tom(f * 2, dur * 0.6, 'sine', vol * 0.18, atraso);
     },
     // acerto: o espelho do erro, dois tons subindo ("plim-plim")
-    ok() { this.suave(523, 0.16, 1, 0); this.suave(784, 0.42, 1, 0.15); },
-    erro() { this.suave(392, 0.2, 1, 0); this.suave(311, 0.42, 1, 0.19); },
+    vibrar(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) { /* ignore */ } },
+    ok() { this.vibrar(30); this.suave(523, 0.16, 1, 0); this.suave(784, 0.42, 1, 0.15); },
+    erro() { this.vibrar([60, 50, 60]); this.suave(392, 0.2, 1, 0); this.suave(311, 0.42, 1, 0.19); },
     tique() { this.suave(880, 0.1, 0.75); },
     tempoEsgotado() { this.suave(523, 0.18, 1, 0); this.suave(440, 0.18, 1, 0.17); this.suave(349, 0.5, 1, 0.34); },
     foto() { this.suave(784, 0.1, 1, 0); this.suave(1175, 0.3, 1, 0.09); },
@@ -236,7 +237,10 @@
           <img class="logo-inicio" src="${DM.creditos.logoClara}" alt="${DM.creditos.instituicao}">
           <h1 class="titulo-mega"><span>DETETIVES</span><span class="amarelo">DA MATÉRIA</span></h1>
           <p class="missao-tag">MISSÃO: INVESTIGAR, IDENTIFICAR E SEPARAR!</p>
-          <button class="btn btn-pri btn-gigante" data-acao="comecar">${I('lupa')}<span>INICIAR INVESTIGAÇÃO</span>${I('seta')}</button>
+          <div class="ini-acoes">
+            <button class="btn btn-pri btn-gigante" data-acao="comecar">${I('lupa')}<span>INICIAR INVESTIGAÇÃO</span>${I('seta')}</button>
+            ${podeTelaCheia() ? `<button class="ico-btn ini-tela-cheia" data-acao="tela-cheia" aria-label="Tela cheia">${I(emTelaCheia() ? 'sairTelaCheia' : 'telaCheia')}</button>` : ''}
+          </div>
         </div>
         <div class="inicio-cena">
           <div class="scanner">
@@ -402,6 +406,10 @@
         $('.dica-lupa', el).classList.add('some');
       });
       const box = $('#interrog', el);
+      // no celular as pistas começam recolhidas; tocar no título abre e fecha
+      const pistas = $('.pistas', el);
+      if (window.innerWidth > 600) pistas.classList.add('aberta');
+      $('.pistas-tit', el).addEventListener('click', () => pistas.classList.toggle('aberta'));
 
       const trilhaEl = $('#trilha', el);
       const desenharTrilha = () => { trilhaEl.innerHTML = trilha(); };
@@ -938,6 +946,16 @@
     }, 1000);
   }, 2000);
 
+  /* ---------------- TELA CHEIA ---------------- */
+  function podeTelaCheia() { const r = document.documentElement; return !!(r.requestFullscreen || r.webkitRequestFullscreen); }
+  function emTelaCheia() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  const trocarIconeTelaCheia = () => $$('[data-acao="tela-cheia"]').forEach((b) => {
+    b.innerHTML = I(emTelaCheia() ? 'sairTelaCheia' : 'telaCheia');
+    b.setAttribute('aria-label', emTelaCheia() ? 'Sair da tela cheia' : 'Tela cheia');
+  });
+  document.addEventListener('fullscreenchange', trocarIconeTelaCheia);
+  document.addEventListener('webkitfullscreenchange', trocarIconeTelaCheia);
+
   /* ---------------- PARTIDA ---------------- */
   function montarTopo() {
     $('#topo').innerHTML = `
@@ -954,7 +972,7 @@
       <div class="topo-dir">
         <div class="pontos-box" id="t-pontos-box"><small>PONTOS</small><b id="t-pontos">0</b></div>
         <button class="ico-btn" data-acao="som" aria-label="Desligar som">${I('som')}</button>
-        ${(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen) ? `<button class="ico-btn" data-acao="tela-cheia" aria-label="Tela cheia">${I('telaCheia')}</button>` : ''}
+        ${podeTelaCheia() ? `<button class="ico-btn" data-acao="tela-cheia" aria-label="Tela cheia">${I('telaCheia')}</button>` : ''}
         <button class="ico-btn reset" data-acao="reiniciar" aria-label="Reiniciar para novo visitante">${I('reiniciar')}</button>
       </div>`;
   }

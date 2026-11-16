@@ -46,6 +46,7 @@ window.DM = window.DM || {};
     painel: '<rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/>',
     som: '<path d="M4 9h3.2L12 5v14l-4.8-4H4z"/><path d="M15.8 9.2a4 4 0 0 1 0 5.6M18.6 6.4a8 8 0 0 1 0 11.2"/>',
     mudo: '<path d="M4 9h3.2L12 5v14l-4.8-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>',
+    sairTelaCheia: '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>',
     telaCheia: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
     reiniciar: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 3.5v5h5"/>',
     ok: '<path d="m4.5 12.5 5 5L19.5 7"/>',
