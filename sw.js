@@ -1,6 +1,6 @@
 /* Guarda o site no aparelho para funcionar sem internet na feira.
    Ao publicar uma versão nova, troque o número de VERSAO. */
-const VERSAO = 'detetives-v1';
+const VERSAO = 'detetives-v2';
 const ARQUIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/data.js', 'js/svg.js', 'js/foto.js', 'js/app.js',

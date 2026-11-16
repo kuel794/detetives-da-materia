@@ -792,6 +792,7 @@ body[data-tela="inicio"] #topo { margin-top: calc(var(--topo-h) * -1 - 6px); }
   .opcoes, .opcoes.tres { grid-template-columns: 1fr; }
   .trilha-passo span:last-child { display: none; }
   .inicio-cena { display: none; }
+  .inicio-grid { padding-bottom: 34px; }
   .feedback.on { grid-template-columns: auto 1fr; }
   .feedback.on .btn { grid-column: 1 / 3; }
   .conc-grid { grid-template-columns: 1fr; }
